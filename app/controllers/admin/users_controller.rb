@@ -7,7 +7,7 @@
 
 class Admin::UsersController < Admin::AdminController
 
-  before_action :redirect_if_ldap_user, only: %i[edit update]
+  before_action :user, only: %i[edit update]
 
   helper_method :toggle_admin
 
@@ -82,7 +82,6 @@ class Admin::UsersController < Admin::AdminController
     end
   end
 
-
   private
 
   def destroy_user
@@ -90,16 +89,6 @@ class Admin::UsersController < Admin::AdminController
     # so set admin to false first
     user.update!(admin: false) if user.admin?
     user.destroy!
-  end
-
-  def redirect_if_ldap_user
-    return unless user.ldap?
-
-    flash[:error] = t('flashes.admin.users.update.ldap')
-
-    respond_to do |format|
-      format.html { redirect_to admin_users_path }
-    end
   end
 
   def user
