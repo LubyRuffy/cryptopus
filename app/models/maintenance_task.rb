@@ -6,16 +6,18 @@
 #  https://github.com/puzzle/cryptopus.
 
 class MaintenanceTask
-  class_attribute :label, :description, :hint, :task_params
+  class_attribute :label, :description, :hint, :task_params, :executable
   PARAM_TYPE_PASSWORD = 'password'.freeze
   PARAM_TYPE_CHECKBOX = 'check_box'.freeze
   PARAM_TYPE_NUMBER = 'number'.freeze
   PARAM_TYPE_TEXT = 'text'.freeze
 
   TASKS = %w[RootAsAdmin NewRootPassword].freeze
+  LDAP_ONLY_TASKS = %w[ListRemovedLdapUsers].freeze
+
   class << self
     def list
-      TASKS.collect do |t|
+      tasks.collect do |t|
         constantize_class(t)
       end
     end
@@ -27,6 +29,12 @@ class MaintenanceTask
 
     def constantize_class(task)
       "MaintenanceTasks::#{task}".constantize
+    end
+
+    def tasks
+      tasks = TASKS
+      tasks += LDAP_ONLY_TASKS if Setting.value('ldap', 'enable')
+      tasks
     end
   end
 

@@ -7,6 +7,8 @@
 
 class Admin::MaintenanceTasksController < Admin::AdminController
 
+  helper_method :execute_removed_ldap_users
+
   # GET /admin/maintenance_tasks
   def index
     @maintenance_tasks = MaintenanceTask.list
@@ -15,7 +17,7 @@ class Admin::MaintenanceTasksController < Admin::AdminController
 
   # GET /admin/maintenance_tasks/1/prepare
   def prepare
-    task = MaintenanceTask::TASKS[params[:id].to_i]
+    task = MaintenanceTask::tasks[params[:id].to_i]
     @maintenance_task = MaintenanceTask.constantize_class(task)
     flash[:notice] = @maintenance_task.hint
   end
@@ -40,6 +42,13 @@ class Admin::MaintenanceTasksController < Admin::AdminController
   def task_params
     params.require(:task_params).
       permit(:new_root_password, :retype_password, :root_password)
+  end
+
+  def execute_removed_ldap_users
+     users = @maintenance_task.removed_ldap_users
+     return users if users.present?
+     flash[:error] = t('flashes.admin.maintenance_tasks.ldap_connection.failed')
+     []
   end
 
 end

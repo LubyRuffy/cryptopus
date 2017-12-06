@@ -199,6 +199,9 @@ fr:
           toggle:
             empowerd: "L'usutilisateur a reçu les droits d administrateur"
             disempowerd: "L'utilisateur a perdu les droits d'administrateur"
+          destroy:
+            own_user: "Actuel de l'utilisateur ne peut pas être supprimé"
+          no_access: "Accès refusé"
     members:
       added: "%{username} a été enlevé avec succès à l'équipe"
       removed: "%{username} a été ajouté avec succès à l'équipe"
@@ -220,7 +223,6 @@ fr:
       users:
         created: "Utilisateur créé avec succès."
         destroy:
-          own_user: "Actuel de l'utilisateur ne peut pas être supprimé"
           root: "Root ne peut pas être supprimé"
         update:
           root: "Root ne peuvent pas être mis à jour"
@@ -228,6 +230,8 @@ fr:
       maintenance_tasks:
         succeed: "La tâche a été exécutée avec succès.."
         failed: "La tâche a échoué. Consultez les journaux pour plus d'informations."
+        ldap_connection:
+          failed: "Connexion au serveur Ldap réussie"
 
     accounts:
       created: "Compte créé avec succès."

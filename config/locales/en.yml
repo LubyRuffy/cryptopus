@@ -196,6 +196,10 @@ en:
           toggle:
             empowered: "%{username} is now an admin"
             disempowered: "%{username} is no more admin"
+          destroy:
+            own_user: "You can't delete your-self"
+            success: "Deleted user %{username}"
+          no_access: "Access denied"
       members:
         removed: "%{username} was successfully removed from team"
         added: "%{username} was successfully added to team"
@@ -217,7 +221,6 @@ en:
       users:
         created: "Successfully created a new user."
         destroy:
-          own_user: "You can't delete your-self"
           root: "Root cannot be deleted"
         update:
           root: "Root cannot be updated"
@@ -225,6 +228,8 @@ en:
       maintenance_tasks:
         succeed: "Task was executed successfully."
         failed: "Task failed. See logs for more information."
+        ldap_connection:
+          failed: "Connection to Ldap Server failed"
 
     accounts:
       created: "Account was successfully created."
